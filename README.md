@@ -1,31 +1,38 @@
-# WPILib Vendor Template
+# Commandeer - Control and Command Management for _FIRST_ Robotics
 
-This is the base WPILib vendor template for 2025.
+> [!NOTE]
+> This project is still in an _incredibly incredibly_ early stage. It's very much still "can we build this thing that's useful" and is not in any way ready to be put into your robot.
 
-## Layout
+_Commandeer_ adds a Graphical User Interface (GUI) to the Command and Controller management of a FIRST Robotics Competition (FRC) robot.
 
-The build is split into 3 libraries. A java library is built. This has access to all of wpilib, and also can JNI load the driver library.
+Have you ever wanted to quickly:
 
-A driver library is built. This should contain all low level code you want to access from both C++, Java and any other text based language. This will not work with LabVIEW. This library has access to the WPILib HAL and wpiutil. This library can only export C symbols. It cannot export C++ symbols at all, and all C symbols must be explicitly listed in the symbols.txt file in the driver folder. JNI symbols must be listed in this file as well. This library however can be written in C++. If you attempt to change this library to have access to all of wpilib, you will break JNI access and it will no longer work.
+- Create complex command groupings without needing to worry about parentheses, syntax, and ordering
+- Adjust what a command does without needing to code it up
+- Allow non-programmers to effectively change control and command schemes
+- Generate controller documentation for drive teams
 
-A native C++ library is built. This has access to all of wpilib, and access to the driver library. This should implment the standard wpilib interfaces.
+Then _Commandeer_ might just be the tool for you!
 
-## Customizing
-For Java, the library name will be the folder name the build is started from, so rename the folder to the name of your choosing. 
+_Commandeer_ is maintained by _FIRST_ Robotics team #5590, the Alumiboti, out of Buffalo, New York.
 
-For the native impl, you need to change the library name in the exportsConfigs block of build.gradle, the components block of build.gradle, and the taskList input array name in publish.gradle.
+## Development
 
-For the driver, change the library name in privateExportsConfigs, the driver name in components, and the driverTaskList input array name. In addition, you'll need to change the `lib library` in the native C++ impl component, and the JNI library name in the JNI java class.
+Want to contribute to _Commandeer_? We'd appreciate any and all quality help! The following guides will assist you in working with the repository and different parts of the project.
 
-For the maven artifact names, those are all in publish.gradle about 40 lines down.
+### Development Start Up
 
-## Building and editing
-This uses gradle, and uses the same base setup as a standard GradleRIO robot project. This means you build with `./gradlew build`, and can install the native toolchain with `./gradlew installRoboRIOToolchain`. If you open this project in VS Code with the wpilib extension installed, you will get intellisense set up for both C++ and Java.
+> [!NOTE]
+> These are the "Getting Started" guides for _development_, **not usage**.
 
-By default, this template builds against the latest WPILib development build. To build against the last WPILib tagged release, build with `./gradlew build -PreleaseMode`.
+- Build the code locally
 
-## Checking Vendordep
-After you've published your library to maven, you can use the [vendordep checker](https://github.com/wpilibsuite/vendor-json-repo/blob/main/check.py) to check for common errors, such as not publishing all dependencies, and ensuring that all architectures are correct.
+  ```console
+  ./gradlew build
+  ```
 
-## Listing Vendordep in VS Code Dependency Manager
-Follow the directions at [WPILib Vendor JSON Repository](https://github.com/wpilibsuite/vendor-json-repo/blob/main/README.md) to get a Vendordep included in the [VS Code Dependency Manager](https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html#installing-libraries)
+### Branching Model
+
+We utilize a `main` branch for all latest development and commits. It is an unreleased and "hopefully stable" version that all Pull Requests should be merged into.
+
+Each year has an appropriate `YYYY` year branch representing a version that is stable, released, and ready for use on your robot for that appropriate year.
